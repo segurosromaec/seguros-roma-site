@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import site from "../data/site.json";
+import { whatsappLink } from "../utils/format";
+
+const wa = whatsappLink(site.whatsapp_numero, site.whatsapp_mensaje);
+---
+
+<Layout title="Inicio" description={site.descripcion}>
+	<section class="hero">
+		<div class="container">
+			<h1>{site.nombre}</h1>
+			<p>Mensaje principal por definir.</p>
+			<p>
+				<a class="btn" href="/productos">Ver seguros</a>
+				{wa && <a class="btn btn-secondary" href={wa} rel="noopener">Escríbenos por WhatsApp</a>}
+			</p>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.hero { background: var(--color-surface); }
+	.btn-secondary { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); margin-left: var(--space-2); }
+</style>

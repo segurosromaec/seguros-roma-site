@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import productos from "../data/productos.json";
+---
+
+<Layout title="Seguros" description="Conoce los seguros que ofrecemos.">
+	<div class="container">
+		<h1>Seguros</h1>
+		{
+			productos.length === 0 ? (
+				<p>Catálogo por definir.</p>
+			) : (
+				<ul>
+					{productos.map((p: { nombre: string }) => <li>{p.nombre}</li>)}
+				</ul>
+			)
+		}
+	</div>
+</Layout>
