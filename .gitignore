@@ -1,0 +1,32 @@
+# Dependencias y build
+node_modules/
+dist/
+.astro/
+
+# Variables de entorno / secretos — NUNCA se commitean
+.env
+.env.*
+!.env.example
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs
+npm-debug.log*
+
+# Imágenes originales pesadas (solo entran al repo ya optimizadas)
+**/raw-fotos/
+
+# Documentación interna del negocio — no se sube
+docs-internos/
+
+# Material fuente del cliente (kick-off): ya extraído a docs/. No se sube.
+kick-off/
+
+# Preferencias locales de Claude Code (los skills de .claude/skills/ sí se versionan)
+.claude/settings.local.json
+.claude/.tdd-state/

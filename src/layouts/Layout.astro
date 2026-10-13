@@ -1,0 +1,93 @@
+---
+import "@fontsource/cinzel/latin-700.css";
+import "@fontsource/montserrat/latin-400.css";
+import "@fontsource/montserrat/latin-600.css";
+import "@fontsource/montserrat/latin-700.css";
+import "../styles/tokens.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import site from "../data/site.json";
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+	noindex?: boolean;
+}
+
+const { title, description, image = "/images/og-default.png", noindex = false } = Astro.props;
+const fullTitle = `${title} · ${site.nombre}`;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const ogImageUrl = new URL(image, Astro.site ?? Astro.url.origin);
+
+// GA4 — no se carga nada hasta configurar PUBLIC_GA_MEASUREMENT_ID (ver .env.example).
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#1a3e6e" />
+		<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={site.nombre} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:locale" content="es_EC" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		{gaId && (
+			<>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+				<script is:inline src="/scripts/analytics.js" data-ga-id={gaId}></script>
+			</>
+		)}
+	</head>
+	<body>
+		<a class="skip-link" href="#inicio">Saltar al contenido</a>
+		<SiteHeader />
+		<main>
+			<slot />
+		</main>
+		<SiteFooter />
+
+		<!-- Externos (no inline) a propósito: la CSP no permite scripts inline. -->
+		<script is:inline src="/scripts/tracking.js"></script>
+
+		<style>
+			:global(*) { box-sizing: border-box; }
+			:global(html) { scroll-behavior: smooth; }
+			@media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
+			:global(body) {
+				margin: 0;
+				background: var(--color-bg);
+				color: var(--color-text);
+				font-family: var(--font-body);
+				font-size: var(--text-base);
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+			}
+			:global(:focus-visible) { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+			:global(.contacto :focus-visible), :global(.contacto) :global(:focus-visible) { outline-color: var(--color-blanco); }
+			.skip-link {
+				position: absolute; left: var(--space-2); top: -100px; z-index: 30;
+				padding: var(--space-2) var(--space-4); background: var(--color-primary); color: var(--color-on-primary);
+				border-radius: var(--radius); text-decoration: none;
+			}
+			.skip-link:focus { top: var(--space-2); }
+		</style>
+	</body>
+</html>

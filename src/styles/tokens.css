@@ -1,0 +1,55 @@
+/*
+  Design tokens de Seguros Roma — Manual de Marca Digital V1.3 (ver docs/brand/BRAND.md).
+  No hardcodear colores/tamaños fuera de estas variables.
+  Proporción de uso: azul 55 % · marfil/blanco 30 % · dorado 10 % · burdeos 3 % · oxford 2 %.
+*/
+
+:root {
+  /* Color de marca */
+  --color-azul: #1a3e6e;        /* Azul Roma: navegación, títulos, CTA principal */
+  --color-marfil: #fef4e6;      /* Fondos cálidos / secciones premium */
+  --color-blanco: #ffffff;
+  --color-dorado: #d4af37;      /* SOLO acento (líneas, detalles). Nunca botón principal ni texto sobre claro */
+  --color-burdeos: #8f1f2f;     /* Énfasis editorial puntual */
+  --color-oxford: #4a5157;      /* Texto de lectura / soporte */
+
+  /* Roles semánticos */
+  --color-bg: var(--color-blanco);
+  --color-surface: var(--color-marfil);
+  --color-text: var(--color-oxford);
+  --color-heading: var(--color-azul);
+  --color-primary: var(--color-azul);
+  --color-on-primary: var(--color-blanco);
+  --color-border: #e3dccf;
+  --color-focus: var(--color-azul);
+
+  /* Tipografía: Cinzel solo para H1/frases de marca; Montserrat para el resto */
+  --font-display: "Cinzel", Georgia, "Times New Roman", serif;
+  --font-body: "Montserrat", Arial, sans-serif;
+  --font-heading: var(--font-body);
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-h2: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-h1: clamp(2.25rem, 1.7rem + 2.8vw, 3.5rem);
+  --tracking-wide: 0.08em;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4.5rem;
+
+  /* Forma (manual: radio 12–18 px, alto mínimo de botón 44 px) */
+  --radius: 14px;
+  --tap-min: 44px;
+  --shadow-card: 0 1px 2px rgb(26 62 110 / 0.06), 0 8px 24px rgb(26 62 110 / 0.08);
+  --container: 1120px;
+}

@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import isotipo from "../assets/brand/isotipo.png";
+import site from "../data/site.json";
+import { whatsappLink } from "../lib/contacto";
+import Button from "./Button.astro";
+
+const wa = whatsappLink(site.whatsapp_numero, site.whatsapp_mensaje);
+---
+
+<section class="hero" id="inicio">
+	<div class="hero-inner">
+		<div class="hero-text">
+			<h1>Protege lo que importa. Compara antes de decidir.</h1>
+			<p class="lead">Asesoría clara para salud, vida, vehículos y patrimonio.</p>
+			<div class="actions">
+				{wa && <Button href={wa} external>Escribir por WhatsApp</Button>}
+			</div>
+		</div>
+		<div class="hero-mark">
+			<Image src={isotipo} alt={`Isotipo de ${site.nombre}`} width={440} format="webp" loading="eager" fetchpriority="high" />
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero { background: var(--color-surface); scroll-margin-top: 70px; }
+	.hero-inner {
+		display: grid; gap: var(--space-8); align-items: center;
+		max-width: var(--container); margin: 0 auto; padding: var(--space-12) var(--space-4);
+	}
+	h1 {
+		margin: 0 0 var(--space-4);
+		font-family: var(--font-display); font-weight: 700; font-size: var(--text-h1);
+		line-height: 1.15; color: var(--color-heading);
+	}
+	.lead { margin: 0 0 var(--space-8); font-size: var(--text-md); max-width: 36ch; }
+	.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+	.hero-mark { display: flex; justify-content: center; }
+	.hero-mark :global(img) { width: min(46vw, 200px); height: auto; }
+
+	@media (min-width: 900px) {
+		.hero-inner { grid-template-columns: 1.2fr 1fr; padding: var(--space-16) var(--space-4); }
+		.hero-mark :global(img) { width: min(100%, 340px); }
+	}
+</style>
