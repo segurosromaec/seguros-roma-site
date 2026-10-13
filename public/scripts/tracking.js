@@ -10,14 +10,21 @@ document.addEventListener("click", (event) => {
 	var href = link.getAttribute("href") || "";
 
 	if (href.indexOf("wa.me") !== -1) {
-		gtag("event", "click_whatsapp", { link_url: href });
+		// En las cards de seguros, el título del seguro identifica el interés.
+		var card = link.closest("article");
+		var titulo = card && card.querySelector("h3");
+		gtag("event", "click_whatsapp", { link_url: href, producto: titulo ? titulo.textContent.trim() : undefined });
 	} else if (href.indexOf("tel:") === 0) {
 		gtag("event", "click_telefono", { link_url: href });
+	} else if (href.indexOf("instagram.com") !== -1) {
+		gtag("event", "click_instagram", { link_url: href });
+	} else if (href.indexOf("facebook.com") !== -1) {
+		gtag("event", "click_facebook", { link_url: href });
 	} else if (href.indexOf("maps.app.goo.gl") !== -1 || href.indexOf("google.com/maps") !== -1) {
 		gtag("event", "click_maps", { link_url: href });
-	} else if (href === "/productos") {
-		gtag("event", "click_ver_productos", { from_path: location.pathname });
-	} else if (href === "/contacto") {
+	} else if (href === "#seguros") {
+		gtag("event", "click_ver_seguros", { from_path: location.pathname });
+	} else if (href === "#contacto") {
 		gtag("event", "click_contacto", { from_path: location.pathname });
 	}
 });

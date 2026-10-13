@@ -1,5 +1,11 @@
 ---
+import "@fontsource/cinzel/latin-700.css";
+import "@fontsource/montserrat/latin-400.css";
+import "@fontsource/montserrat/latin-600.css";
+import "@fontsource/montserrat/latin-700.css";
 import "../styles/tokens.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import site from "../data/site.json";
 
 interface Props {
@@ -9,21 +15,13 @@ interface Props {
 	noindex?: boolean;
 }
 
-const { title, description, image = "/images/og-default.jpg", noindex = false } = Astro.props;
+const { title, description, image = "/images/og-default.png", noindex = false } = Astro.props;
 const fullTitle = `${title} · ${site.nombre}`;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const ogImageUrl = new URL(image, Astro.site ?? Astro.url.origin);
 
 // GA4 — no se carga nada hasta configurar PUBLIC_GA_MEASUREMENT_ID (ver .env.example).
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
-const currentYear = new Date().getFullYear();
-
-const navLinks = [
-	{ href: "/", label: "Inicio" },
-	{ href: "/nosotros", label: "Nosotros" },
-	{ href: "/productos", label: "Seguros" },
-	{ href: "/contacto", label: "Contacto" },
-];
 ---
 
 <!doctype html>
@@ -31,7 +29,10 @@ const navLinks = [
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="theme-color" content="#1a3e6e" />
+		<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
@@ -42,6 +43,8 @@ const navLinks = [
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:locale" content="es_EC" />
 		<meta name="twitter:card" content="summary_large_image" />
@@ -54,33 +57,20 @@ const navLinks = [
 		)}
 	</head>
 	<body>
-		<header class="site-header">
-			<a href="/" class="brand" aria-label={site.nombre}>{site.nombre}</a>
-			<input type="checkbox" id="nav-toggle" class="nav-toggle" />
-			<label for="nav-toggle" class="nav-toggle-label" aria-label="Abrir menú"><span></span></label>
-			<nav class="site-nav" aria-label="Principal">
-				<ul>
-					{navLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
-				</ul>
-			</nav>
-		</header>
-
+		<a class="skip-link" href="#inicio">Saltar al contenido</a>
+		<SiteHeader />
 		<main>
 			<slot />
 		</main>
+		<SiteFooter />
 
-		<footer class="site-footer">
-			<p class="footer-name">{site.nombre}</p>
-			<p><a href="/contacto">Contacto</a></p>
-			<p class="footer-copyright">© {currentYear} {site.nombre}. Todos los derechos reservados.</p>
-		</footer>
-
-		<!-- Externo (no inline) a propósito: la CSP no permite scripts inline. -->
+		<!-- Externos (no inline) a propósito: la CSP no permite scripts inline. -->
 		<script is:inline src="/scripts/tracking.js"></script>
 
 		<style>
 			:global(*) { box-sizing: border-box; }
 			:global(html) { scroll-behavior: smooth; }
+			@media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
 			:global(body) {
 				margin: 0;
 				background: var(--color-bg);
@@ -88,63 +78,16 @@ const navLinks = [
 				font-family: var(--font-body);
 				font-size: var(--text-base);
 				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
 			}
-			:global(h1), :global(h2), :global(h3) {
-				font-family: var(--font-display);
-				margin: 0 0 var(--space-4);
-				line-height: 1.15;
+			:global(:focus-visible) { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+			:global(.contacto :focus-visible), :global(.contacto) :global(:focus-visible) { outline-color: var(--color-blanco); }
+			.skip-link {
+				position: absolute; left: var(--space-2); top: -100px; z-index: 30;
+				padding: var(--space-2) var(--space-4); background: var(--color-primary); color: var(--color-on-primary);
+				border-radius: var(--radius); text-decoration: none;
 			}
-			:global(a) { color: var(--color-accent); }
-			:global(.container) { max-width: 1100px; margin: 0 auto; padding: var(--space-8) var(--space-4); }
-			:global(.btn) {
-				display: inline-block;
-				padding: var(--space-3) var(--space-5);
-				background: var(--color-primary);
-				color: var(--color-on-primary);
-				border-radius: var(--radius);
-				text-decoration: none;
-				font-weight: 600;
-			}
-
-			.site-header {
-				position: relative;
-				z-index: 10;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: var(--space-4);
-				background: var(--color-primary);
-			}
-			.brand { color: var(--color-on-primary); text-decoration: none; font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; }
-			.nav-toggle { display: none; }
-			.nav-toggle-label { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
-			.nav-toggle-label span, .nav-toggle-label::before, .nav-toggle-label::after {
-				content: ""; width: 22px; height: 2px; background: var(--color-on-primary); display: block;
-			}
-			.site-nav {
-				position: absolute; top: 100%; left: 0; right: 0;
-				background: var(--color-primary); display: none;
-				border-top: 1px solid rgba(255, 255, 255, 0.2);
-			}
-			.nav-toggle:checked ~ .site-nav { display: block; }
-			.site-nav ul { list-style: none; margin: 0; padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); }
-			.site-nav a { color: var(--color-on-primary); text-decoration: none; text-transform: uppercase; font-size: var(--text-sm); letter-spacing: var(--tracking-wide); }
-
-			.site-footer {
-				background: var(--color-primary); color: var(--color-on-primary);
-				text-align: center; padding: var(--space-12) var(--space-4) var(--space-8);
-			}
-			.footer-name { font-family: var(--font-display); font-size: var(--text-lg); margin: 0 0 var(--space-2); }
-			.site-footer a { color: var(--color-on-primary); }
-			.footer-copyright { font-size: var(--text-xs); margin: var(--space-4) 0 0; }
-
-			/* Desktop (>= 768px): nav siempre visible */
-			@media (min-width: 768px) {
-				.site-header { padding: var(--space-4) var(--space-8); }
-				.nav-toggle-label { display: none; }
-				.site-nav { position: static; display: block; background: none; border-top: none; }
-				.site-nav ul { flex-direction: row; padding: 0; gap: var(--space-8); }
-			}
+			.skip-link:focus { top: var(--space-2); }
 		</style>
 	</body>
 </html>

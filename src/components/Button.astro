@@ -1,0 +1,41 @@
+---
+interface Props {
+	href: string;
+	variant?: "primary" | "secondary" | "inverse";
+	external?: boolean;
+	size?: "md" | "sm";
+}
+
+const { href, variant = "primary", external = false, size = "md" } = Astro.props;
+const rel = external ? "noopener noreferrer" : undefined;
+const target = external ? "_blank" : undefined;
+---
+
+<a class={`btn btn-${variant} btn-${size}`} href={href} rel={rel} target={target}><slot /></a>
+
+<style>
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-2);
+		min-height: var(--tap-min);
+		padding: var(--space-3) var(--space-5);
+		border: 2px solid transparent;
+		border-radius: var(--radius);
+		font-family: var(--font-body);
+		font-size: var(--text-base);
+		font-weight: 600;
+		line-height: 1.2;
+		text-align: center;
+		text-decoration: none;
+		transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+	}
+	.btn-sm { padding: var(--space-2) var(--space-4); font-size: 0.9375rem; }
+	.btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+	.btn-primary:hover { background: #14305a; }
+	.btn-secondary { background: var(--color-blanco); color: var(--color-primary); border-color: var(--color-primary); }
+	.btn-secondary:hover { background: var(--color-marfil); }
+	.btn-inverse { background: var(--color-blanco); color: var(--color-primary); }
+	.btn-inverse:hover { background: var(--color-marfil); }
+</style>

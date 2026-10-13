@@ -1,0 +1,52 @@
+---
+import { getImage } from "astro:assets";
+import isotipo from "../assets/brand/isotipo.png";
+import logoHorizontal from "../assets/brand/logo-horizontal.png";
+import site from "../data/site.json";
+import { whatsappLink } from "../lib/contacto";
+import Button from "./Button.astro";
+
+const wa = whatsappLink(site.whatsapp_numero, site.whatsapp_mensaje);
+const isotipoImg = await getImage({ src: isotipo, width: 96, format: "webp" });
+const horizontalImg = await getImage({ src: logoHorizontal, width: 480, format: "webp" });
+---
+
+<header class="site-header">
+	<div class="header-inner">
+		<a href="#inicio" class="brand" aria-label={`${site.nombre}: ir al inicio`}>
+			<picture>
+				<source media="(min-width: 900px)" srcset={horizontalImg.src} width={horizontalImg.options.width} height={horizontalImg.options.height} />
+				<img src={isotipoImg.src} alt={site.nombre} width="44" height="50" />
+			</picture>
+		</a>
+
+		{wa && <div class="header-cta"><Button href={wa} external size="sm">Cotizar</Button></div>}
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		background: var(--color-blanco);
+		border-bottom: 1px solid var(--color-border);
+	}
+	.header-inner {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		max-width: var(--container);
+		margin: 0 auto;
+		padding: var(--space-2) var(--space-4);
+	}
+	.brand { display: flex; align-items: center; margin-right: auto; }
+	.brand img { display: block; height: 44px; width: auto; }
+
+	@media (min-width: 900px) {
+		.header-inner { padding: var(--space-3) var(--space-4); }
+		.brand img { height: 64px; }
+		.brand { margin-right: auto; }
+	}
+</style>
