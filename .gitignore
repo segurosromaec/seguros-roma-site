@@ -23,3 +23,10 @@ npm-debug.log*
 
 # Documentación interna del negocio — no se sube
 docs-internos/
+
+# Material fuente del cliente (kick-off): ya extraído a docs/. No se sube.
+kick-off/
+
+# Preferencias locales de Claude Code (los skills de .claude/skills/ sí se versionan)
+.claude/settings.local.json
+.claude/.tdd-state/

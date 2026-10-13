@@ -1,16 +1,16 @@
 # Seguros Roma
 
-Sitio web estático, mobile-first, para **Seguros Roma**: presenta quiénes son, los seguros que ofrecen y cómo contactarlos (WhatsApp, teléfono, mapa), y mide el tráfico con GA4. Es un proyecto hermano de `naru-site` (misma pila tecnológica), pero **independiente**: repositorio, cuenta de GitHub y cuenta de despliegue propios.
+Sitio web estático, mobile-first, para **Seguros Roma** (Ecuador, moneda USD): presenta el catálogo de seguros y lleva al visitante a una conversación de WhatsApp, y mide el tráfico con GA4. Es un proyecto hermano de `naru-site` (misma pila tecnológica), pero **independiente**: repositorio, cuenta de GitHub y cuenta de despliegue propios.
 
-**Estado:** andamiaje inicial (estructura, páginas con contenido por definir). **A dónde queremos llegar:** *(por confirmar con el dueño: objetivo principal del sitio, p. ej. captar cotizaciones por WhatsApp; alcance de la primera versión; si habrá cotizador o formulario en una fase posterior)*.
+**Estado:** entrega por etapas. **Etapa 1 (rama `feat/presentacion-inicio`):** solo la presentación del Inicio (header, hero, footer). **Etapa 2 (`feat/sitio-completo`):** catálogo de 6 seguros y contacto. Sin GA4, Netlify ni dominio todavía (ver `docs/deploy.md`). **Objetivo de negocio:** convertir visitas en conversaciones de WhatsApp. Sin formulario, sin precios, sin blog. Detalle en `docs/site/estructura.md` y `docs/adr/0001-sitio-de-una-pagina.md`.
 
 > Estándares: kit central en `~/.claude/kit` (contrato: `PROJECT-CONTRACT.md`). Aquí solo lo propio de Seguros Roma; la técnica genérica se referencia, no se copia.
 
 ## Stack
-- Astro (HTML estático, islas solo donde haga falta), TypeScript `strict`, CSS con tokens (`src/styles/tokens.css`, hoy placeholders neutros).
-- Datos: `src/data/site.json` (contacto) y `src/data/productos.json` (catálogo de seguros, hoy vacío).
+- Astro (HTML estático, islas solo donde haga falta), TypeScript `strict`, CSS con tokens de marca (`src/styles/tokens.css`, ver `docs/brand/BRAND.md`), fuentes Cinzel y Montserrat autohospedadas (`@fontsource`, OFL). Tests con Vitest.
+- Datos: `src/data/site.json` (contacto) y `src/data/productos.json` (catálogo de 6 seguros, validado al construir).
 - Hosting: Netlify (build automático al integrar en `main`). Analítica: GA4 opcional por `PUBLIC_GA_MEASUREMENT_ID`.
-- **Cuentas (distintas de Naru):** GitHub: *(por definir)* · Netlify: *(por definir)* · GA4: *(por definir)*.
+- **Cuentas (distintas de Naru):** GitHub, Netlify, GA4 y dominio **pendientes** (ver `docs/deploy.md`).
 
 ## Arquitectura
 Estilo: frontend-component
@@ -27,7 +27,13 @@ Estilo: frontend-component
 | `git-feature-flow` (skill) + `conventional-commit`, `pr-description` | Publicación |
 
 ## Skills del proyecto (propios)
-Ninguno todavía. Cuando se defina la marca y el catálogo se crearán (por ejemplo, reglas de marca y de catálogo) y se listarán aquí.
+| Ruta (`.claude/skills/projects/seguros-roma/…`) | Cuándo leerla |
+|---|---|
+| `brand-rules/SKILL.md` | Al tocar logo, colores, tipografía, botones, textos o imágenes (reglas inviolables del manual) |
+| `catalog-rules/SKILL.md` | Al editar `productos.json`, las cards o los textos del catálogo |
+
+## Documentación interna (`docs/`)
+`brand/BRAND.md` (marca) y `brand/assets/` (logos) · `content/catalogo.md` · `site/estructura.md` · `deploy.md` (cuentas y contacto) · `security.md` (OWASP Top 10:2021 y qué no se sube a git) · `adr/`. El kick-off ya está extraído a `docs/` (`brand/manual-texto.md`, `content/catalogo-referencia.jpg`); `kick-off/` queda **solo en local, ignorado por git**.
 
 ## Comandos
 ```bash
@@ -35,8 +41,9 @@ npm install
 npm run dev        # desarrollo
 npm run build      # compuerta: debe pasar sin errores
 npm run check      # tipos (astro check)
+npm test           # Vitest: lógica pura de src/lib/
 ```
-TDD solo para lógica pura en `src/utils/` o `src/lib/` y esquemas de datos; el resto, compuertas de `quality/tdd-workflow/static-sites.md`.
+TDD solo para lógica pura en `src/lib/` (`contacto.ts`, `productos.ts`) y el esquema del catálogo; el resto, compuertas de `quality/tdd-workflow/static-sites.md`.
 
 ## Convenciones
 - Idioma: contenido y mensajes al público en español; identificadores en inglés.

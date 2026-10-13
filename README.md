@@ -6,8 +6,10 @@ Sitio web estático (Astro) de Seguros Roma. Proyecto hermano de `naru-site`, co
 npm install
 npm run dev      # http://localhost:4321
 npm run build    # genera dist/
+npm run check    # tipos (astro check)
+npm test         # tests de lógica pura (Vitest)
 ```
 
 - Contexto, estándares y convenciones: [`CLAUDE.md`](CLAUDE.md).
 - Variables de entorno: copiar `.env.example` a `.env` (la analítica es opcional).
-- Despliegue: Netlify, con `netlify.toml` (cabeceras de seguridad y caché). Falta conectar la cuenta de Netlify y el repositorio de GitHub.
+- Despliegue: Netlify, con `netlify.toml` (cabeceras de seguridad y caché). Pendiente: conectar este repositorio a Netlify y definir el dominio (ver `docs/deploy.md`).
