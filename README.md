@@ -10,7 +10,7 @@ npm run check    # tipos (astro check)
 npm test         # tests de lógica pura (Vitest)
 npm run build    # genera dist/
 ```
-Variables de entorno: copiar `.env.example` a `.env` (la analítica GA4 es opcional).
+La analítica GA4 es opcional: se activa definiendo la variable de entorno `PUBLIC_GA_MEASUREMENT_ID` (en Netlify, o en un `.env` local, que no se versiona).
 
 ## Despliegue
 - **Dónde:** Netlify, proyecto `seguros-roma-site` → https://seguros-roma-site.netlify.app

@@ -6,7 +6,6 @@ dist/
 # Variables de entorno / secretos — NUNCA se commitean
 .env
 .env.*
-!.env.example
 
 # Sistema y editores
 .DS_Store
