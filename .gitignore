@@ -6,7 +6,6 @@ dist/
 # Variables de entorno / secretos — NUNCA se commitean
 .env
 .env.*
-!.env.example
 
 # Sistema y editores
 .DS_Store
@@ -26,7 +25,3 @@ docs-internos/
 
 # Material fuente del cliente (kick-off): ya extraído a docs/. No se sube.
 kick-off/
-
-# Preferencias locales de Claude Code (los skills de .claude/skills/ sí se versionan)
-.claude/settings.local.json
-.claude/.tdd-state/

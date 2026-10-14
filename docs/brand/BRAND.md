@@ -1,6 +1,6 @@
 # Marca digital — Seguros Roma
 
-Resumen operativo del *Manual de Marca Digital V1.3* (texto íntegro en `manual-texto.md`; el docx original vive solo en local y no se versiona). Si algo aquí contradice el manual (`manual-texto.md` + `assets/ref-*.jpg`), **manda el manual**. La versión corta para construir está en `.claude/skills/projects/seguros-roma/brand-rules/SKILL.md`.
+Resumen operativo del *Manual de Marca Digital V1.3* (texto íntegro en `manual-texto.md`; el docx original vive solo en local y no se versiona). Si algo aquí contradice el manual (`manual-texto.md` + `assets/ref-*.jpg`), **manda el manual**.
 
 ## Esencia
 Sólida, cercana, premium y fácil de entender. Slogan: **«Protegemos lo que más importa»**.
