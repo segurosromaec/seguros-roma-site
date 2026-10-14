@@ -4,7 +4,7 @@
 - **Fecha:** 2026-10-06
 
 ## Contexto
-El andamiaje heredado de Naru tiene cuatro páginas (`index`, `nosotros`, `productos`, `contacto`). El alcance de la v1 es Inicio, catálogo de 6 seguros y contacto, con un único objetivo: llevar al visitante a WhatsApp.
+El andamiaje inicial del proyecto tenía cuatro páginas (`index`, `nosotros`, `productos`, `contacto`). El alcance de la v1 es Inicio, catálogo de 6 seguros y contacto, con un único objetivo: llevar al visitante a WhatsApp.
 
 ## Decisión
 Una sola página `/` con secciones `#inicio`, `#seguros`, `#contacto`. Se eliminan `nosotros.astro` y `productos.astro`; `contacto.astro` pasa a ser una sección.

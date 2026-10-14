@@ -1,6 +1,6 @@
 # Seguridad — OWASP Top 10:2021 aplicado a este sitio
 
-Guía base: `quality/owasp-security/static-sites.md` del kit (sitio estático sin backend propio). Auditoría previa a cada PR/release con el `security-agent` del kit. Esta tabla dice **qué aplica aquí** y **qué se hace**.
+Sitio estático sin backend propio: revisar esta lista antes de cada PR/release. Esta tabla dice **qué aplica aquí** y **qué se hace**.
 
 | OWASP 2021 | Aplica a Seguros Roma | Control |
 |---|---|---|
@@ -17,7 +17,7 @@ Guía base: `quality/owasp-security/static-sites.md` del kit (sitio estático si
 
 ## Reglas concretas del proyecto
 1. **Secretos:** ninguno en el repo. Solo `PUBLIC_GA_MEASUREMENT_ID` (público por diseño). `.env*` ignorado salvo `.env.example`.
-2. **Qué NO se sube a git** (ver `.gitignore`): `kick-off/` (material fuente del cliente), `raw-fotos/` (originales pesados), `docs-internos/`, `.env*`, `node_modules/`, `dist/`, `.astro/`, `.claude/settings.local.json`. Antes de cada push: `git status` y revisar que solo entra lo aprobado.
+2. **Qué NO se sube a git** (ver `.gitignore`): `kick-off/` (material fuente del cliente), `raw-fotos/` (originales pesados), `docs-internos/`, `.env*`, `node_modules/`, `dist/`, `.astro/`. Antes de cada push: `git status` y revisar que solo entra lo aprobado.
 3. **Marca:** al repo solo van activos oficiales de la marca (`docs/brand/assets/`, íconos y fotos optimizadas). No se versionan archivos fuente editables ni propuestas descartadas, ni el docx original.
 4. **Datos públicos:** todo lo de `src/` y `public/` es público. Solo contacto del negocio (WhatsApp, redes). Sin datos personales de clientes, tarifas internas ni comisiones.
 5. **Enlaces externos** (WhatsApp, Instagram, Facebook): `rel="noopener noreferrer"`; no requieren cambios de CSP porque son navegación, no embebidos.
